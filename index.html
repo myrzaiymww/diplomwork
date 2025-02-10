@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Продуктовый магазин "Алина"</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marmelad&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html{
+     scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #111;
+    color: #fff;
+    line-height: 1.6;
+  }
+  
+  /* Header */
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1200;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+  }
+  
+  .logo {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-family: "Pacifico", serif;
+  }
+  
+  
+  .navbar {
+    flex: 1;
+    margin-left: 40px;
+  }
+  
+  .nav-menu {
+    display: flex;
+    list-style: none;
+  }
+  
+  .nav-menu li {
+    margin: 0 15px;
+  }
+  
+  .nav-menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    transition: color 0.3s;
+    position: relative;
+  }
+  
+  .nav-menu li a:hover {
+    color: #111;
+  }
+  
+  .nav-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #fff;
+    bottom: -4px;
+    left: 0;
+    transition: width 0.3s;
+  }
+  
+  .nav-menu li a:hover::after {
+    width: 100%;
+  }
+  
+  .cart-icon {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .cart-icon img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #fff;
+    color: #ff416c;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  /* Burger Menu */
+  .burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  
+  .burger-menu span {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 4px 0;
+    transition: 0.3s;
+  }
+  
+  /* Hero Section */
+  .hero {
+    height: 100vh;
+    background: url('./img/bg.avif') no-repeat center/cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 17, 0.7);
+  }
+  
+  .hero-content {
+    position: relative;
+    text-align: center;
+    animation: fadeIn 2s ease-out;
+    z-index: 1111;
+    font-family: "Amatic SC", serif;
+    font-weight: 700;
+  }
+  
+  .hero-content h1 {
+    font-size: 56px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+
+  }
+  
+  .hero-content p {
+    font-size: 30px;
+  }
+  
+  /* Catalog Section */
+  .catalog {
+    padding: 120px 40px 60px;
+    background: #1a1a1a;
+  }
+  
+  .catalog h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 36px;
+    color: #ff416c;
+    text-transform: uppercase;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+  
+  .product-item {
+    background: #222;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+  }
+  
+  .product-item:hover {
+    transform: translateY(-10px);
+    border-color: #ff416c;
+  }
+  
+  .product-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  
+  .product-item:hover img {
+    transform: scale(1.05);
+  }
+  
+  .product-item h3 {
+    margin: 15px;
+    font-size: 20px;
+  }
+  
+  .product-item button {
+    background: #ff416c;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 0 15px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .product-item button:hover {
+    background: #ff4b2b;
+  }
+  
+  /* О нас */
+  .about-us {
+    padding: 80px 40px;
+    background: #181818;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .about-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #ff416c;
+    text-transform: uppercase;
+  }
+  
+  .about-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #ccc;
+    line-height: 1.8;
+  }
+  
+  .about-content img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+    transition: transform 0.3s;
+  }
+  
+  .about-content img:hover {
+    transform: scale(1.02);
+  }
+  /* btn  */
+
+.btn-conteiner {
+    display: flex;
+    justify-content: center;
+    --color-text: #ffffff;
+    --color-background: #ff135a;
+    --color-outline: #ff145b80;
+    --color-shadow: #00000080;
+    margin-top: 15px;
+  }
+  
+  .btn-content {
+    display: flex;
+    align-items: center;
+    padding: 5px 40px;
+    text-decoration: none;
+    font-family: "Marmelad", serif;
+    font-weight: 100;
+    font-size: 30px;
+    color: var(--color-text);
+    background: var(--color-background);
+    transition: 1s;
+    border-radius: 100px;
+    box-shadow: 0 0 0.2em 0 var(--color-background);
+  }
+  
+  .btn-content:hover, .btn-content:focus {
+    transition: 0.5s;
+    -webkit-animation: btn-content 1s;
+    animation: btn-content 1s;
+    outline: 0.1em solid transparent;
+    outline-offset: 0.2em;
+    box-shadow: 0 0 0.4em 0 var(--color-background);
+  }
+  
+  .btn-content .icon-arrow {
+    transition: 0.5s;
+    margin-right: 0px;
+    transform: scale(0.6);
+  }
+  
+  .btn-content:hover .icon-arrow {
+    transition: 0.5s;
+    margin-right: 25px;
+  }
+  
+  .icon-arrow {
+    width: 20px;
+    margin-left: 15px;
+    position: relative;
+    top: 6%;
+  }
+    
+  /* SVG */
+  #arrow-icon-one {
+    transition: 0.4s;
+    transform: translateX(-60%);
+  }
+  
+  #arrow-icon-two {
+    transition: 0.5s;
+    transform: translateX(-30%);
+  }
+  
+  .btn-content:hover #arrow-icon-three {
+    animation: color_anim 1s infinite 0.2s;
+  }
+  
+  .btn-content:hover #arrow-icon-one {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.6s;
+  }
+  
+  .btn-content:hover #arrow-icon-two {
+    transform: translateX(0%);
+    animation: color_anim 1s infinite 0.4s;
+  }
+  
+  /* SVG animations */
+  @keyframes color_anim {
+    0% {
+      fill: white;
+    }
+  
+    50% {
+      fill: var(--color-background);
+    }
+  
+    100% {
+      fill: white;
+    }
+  }
+  
+  /* Button animations */
+  @-webkit-keyframes btn-content {
+    0% {
+      outline: 0.2em solid var(--color-background);
+      outline-offset: 0;
+    }
+  }
+  
+  @keyframes btn-content {
+    0% {
+      outline: 0.2em solid var(--color-background);
+      outline-offset: 0;
+    }
+  }
+  /* Footer */
+  footer {
+    background: #111;
+    text-align: center;
+    color: #777;
+  }
+  
+  /* Modal для корзины */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
+    animation: fadeInModal 0.5s;
+  }
+  
+  .modal-content {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+    color: #ff416c;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+  }
+  
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+  }
+  
+  .cart-total {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  /* Анимации */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .header-content {
+      flex-wrap: wrap;
+      padding: 15px 20px;
+    }
+    .navbar {
+      display: none;
+      width: 100%;
+      margin: 10px 0;
+    }
+    .navbar.active {
+      display: block;
+    }
+    .nav-menu {
+      flex-direction: column;
+      align-items: center;
+    }
+    .burger-menu {
+      display: flex;
+    }
+  }
+
+  footer {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Верхняя часть футера с градиентным фоном */
+.footer-top {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: #fff;
+  padding: 40px 0;
+}
+
+/* Нижняя часть футера с тёмным фоном */
+.footer-bottom {
+  background: #1A1A1A;
+  color: #aaa;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Общий контейнер для выравнивания контента */
+.footer-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Контент верхней части футера */
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Блоки футера */
+.footer-content > div {
+  flex: 1 1 200px;
+  margin: 10px;
+}
+
+/* Стилизация логотипа */
+.footer-logo h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-family: "Pacifico", serif;
+
+}
+.footer-logo p {
+  font-size: 16px;
+}
+
+/* Стилизация меню, соцсетей и контактов */
+.footer-links,
+.footer-social,
+.footer-contact {
+  font-size: 16px;
+}
+
+/* Сброс списка */
+.footer-links ul,
+.footer-social ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Элементы списка */
+.footer-links li,
+.footer-social li {
+  margin-bottom: 8px;
+}
+
+/* Стилизация ссылок */
+.footer-links a,
+.footer-social a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover,
+.footer-social a:hover {
+  color: #1A1A1A;
+}
+
+/* Контакты */
+.footer-contact p {
+  margin: 5px 0;
+}
+
+  
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                Alina
+            </div>
+            <nav class="navbar">
+                <ul class="nav-menu">
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon" id="cartIcon">
+                <!-- Замените путь к иконке, если нужно -->
+                <img src="./img/cartIcons.png" alt="Корзина">
+                <span class="cart-count">0</span>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Свежие продукты каждый день</h1>
+            <p>Мы доставляем вам лучшее</p>
+           
+            <div class="btn-conteiner">
+                <a class="btn-content" href="#catalog">
+                    <span class="btn-title">Товары</span>
+                    <span class="icon-arrow">
+                        <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <path id="arrow-icon-one"
+                                    d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z"
+                                    fill="#FFFFFF"></path>
+                                <path id="arrow-icon-two"
+                                    d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z"
+                                    fill="#FFFFFF"></path>
+                                <path id="arrow-icon-three"
+                                    d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z"
+                                    fill="#FFFFFF"></path>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="catalog">
+        <h2>Каталог продуктов</h2>
+        <div class="product-grid" id="prodcutsList" >
+            <!-- Пример карточек товаров -->
+            
+            
+            <!-- Добавьте больше товаров по необходимости -->
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="about-us">
+        <div class="about-content">
+            <h2>О нас</h2>
+            <p>Магазин «Алина» существует уже более 10 лет и зарекомендовал себя как надежный поставщик свежих и
+                качественных продуктов. Наша миссия – доставить лучшие продукты прямо к вашему столу, сохраняя высокие
+                стандарты качества и заботясь о каждом клиенте.</p>
+            <p>Мы работаем напрямую с фермерами, гарантируя натуральность и экологическую чистоту каждого продукта. Наш
+                коллектив – это команда профессионалов, объединённых страстью к своему делу и стремлением к
+                совершенству.</p>
+            <img src="./img/about.jpg" alt="О нас">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Верхняя часть футера с градиентом -->
+        <div class="footer-top">
+          <div class="footer-container">
+            <div class="footer-content">
+              <!-- Логотип и краткое описание -->
+              <div class="footer-logo">
+                <h2>Alina</h2>
+                <p>Свежие продукты каждый день</p>
+              </div>
+              <!-- Основное меню -->
+              <div class="footer-links">
+                <h3>Меню</h3>
+                <ul>
+                  <li><a href="#">Главная</a></li>
+                  <li><a href="#catalog">Каталог</a></li>
+                  <li><a href="#about">О нас</a></li>
+                  <li><a href="#contacts">Контакты</a></li>
+                </ul>
+              </div>
+              <!-- Социальные сети -->
+              <div class="footer-social">
+                <h3>Соцсети</h3>
+                <ul>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Instagram</a></li>
+                  <li><a href="#">Twitter</a></li>
+                </ul>
+              </div>
+              <!-- Контактная информация -->
+              <div class="footer-contact">
+                <h3>Контакты</h3>
+                <p>Email: info@alina.com</p>
+                <p>Тел: +996 708 025 256</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Нижняя часть футера с темным фоном -->
+        <div class="footer-bottom">
+          <div class="footer-container">
+            <p>&copy; 2025 Магазин "Алина". Все права защищены.</p>
+          </div>
+        </div>
+      </footer>
+
+    <!-- Модальное окно для корзины (создаётся динамически через JS) -->
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+    let cart = [];
+    
+    const products = [
+        {
+          id: 1,
+          name: "Яблоки",
+          price: 35,
+          img: "./img/product/1.avif",
+          alt: "Яблоки"
+        },
+        {
+          id: 2,
+          name: "Молоко",
+          price: 90,
+          img: "./img/product/2.avif",
+          alt: "Молоко"
+        },
+        {
+          id: 3,
+          name: "Хлеб",
+          price: 35,
+          img: "./img/product/3.avif",
+          alt: "Хлеб"
+        },
+        {
+          id: 4,
+          name: "Бананы",
+          price: 200,
+          img: "./img/product/4.avif",
+          alt: "Бананы"
+        },
+        {
+          id: 5,
+          name: "Морковь",
+          price: 60,
+          img: "./img/product/5.avif",
+          alt: "Морковь"
+        },
+        {
+          id: 6,
+          name: "Помидоры",
+          price: 70,
+          img: "./img/product/6.avif",
+          alt: "Помидоры"
+        },
+        {
+          id: 7,
+          name: "Огурцы",
+          price: 60,
+          img: "./img/product/7.avif",
+          alt: "Огурцы"
+        },
+        {
+          id: 8,
+          name: "Курица",
+          price: 350,
+          img: "./img/product/8.avif",
+          alt: "Курица"
+        },
+        {
+          id: 9,
+          name: "Говядина",
+          price: 450,
+          img: "./img/product/9.avif",
+          alt: "Говядина"
+        },
+        {
+          id: 10,
+          name: "Рыба",
+          price: 300,
+          img: "./img/product/10.avif",
+          alt: "Рыба"
+        },
+        {
+          id: 11,
+          name: "Яйца",
+          price: 10,
+          img: "./img/product/11.avif",
+          alt: "Яйца"
+        },
+        {
+          id: 12,
+          name: "Сыр",
+          price: 150,
+          img: "./img/product/12.avif",
+          alt: "Сыр"
+        },
+        {
+          id: 13,
+          name: "Сок",
+          price: 120,
+          img: "./img/product/13.avif",
+          alt: "Сок"
+        },
+        {
+          id: 14,
+          name: "Колбаса",
+          price: 120,
+          img: "./img/product/14.png",
+          alt: "Колбаса"
+        },
+        {
+          id: 15,
+          name: "Кофе",
+          price: 80,
+          img: "./img/product/15.avif",
+          alt: "Кофе"
+        }
+      ];
+
+      const productGrid = document.getElementById('prodcutsList')
+
+    const RenderProducts = ()=>{
+        products.forEach(item =>{
+            const div = document.createElement('div')
+            div.classList.add('product-item')
+            div.setAttribute('data-name', item.name)
+            div.setAttribute('data-id', item.id)
+            div.setAttribute('data-price', item.price)
+
+            div.innerHTML = `
+            
+                <img src="${item.img}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <h3>${item.price} COM</h3>
+                <button class="add-to-cart">Добавить</button>
+
+            `
+            
+            productGrid.appendChild(div)
+        })
+        
+
+    }
+    RenderProducts()
+      
+    // Создаем модальное окно для корзины динамически
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Корзина</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total">Итого: <span id="cartTotal">0</span> сом </div>
+      </div>`;
+    document.body.appendChild(modal);
+    
+    const cartIcon = document.getElementById('cartIcon');
+    const closeModal = modal.querySelector('.close-btn');
+    const cartItemsContainer = modal.querySelector('#cartItems');
+    const cartTotalEl = modal.querySelector('#cartTotal');
+    
+    // Открытие модального окна
+    cartIcon.addEventListener('click', () => {
+      updateModal();
+      modal.style.display = 'flex';
+    });
+    
+    // Закрытие модального окна при клике на крестик
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    
+    // Закрытие модального окна при клике вне контента
+    window.addEventListener('click', (e) => {
+      if(e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+    
+    // Добавление товаров в корзину
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const productItem = e.target.closest('.product-item');
+        const id = productItem.getAttribute('data-id');
+        const name = productItem.getAttribute('data-name');
+        const price = parseFloat(productItem.getAttribute('data-price')) || 0;
+        
+        const existing = cart.find(item => item.id === id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ id, name, price, quantity: 1 });
+        }
+        updateCartCount();
+      });
+    });
+    
+    // Обновление счётчика корзины
+    function updateCartCount() {
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const countEl = cartIcon.querySelector('.cart-count');
+      countEl.textContent = totalCount;
+    }
+    
+    // Обновление содержимого модального окна корзины
+    function updateModal() {
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
+      } else {
+        cart.forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('cart-item');
+          itemDiv.innerHTML = `<span>${item.name} (x${item.quantity})</span><span>${(item.price * item.quantity).toFixed(2)} сом </span>`;
+          cartItemsContainer.appendChild(itemDiv);
+          total += item.price * item.quantity;
+        });
+      }
+      cartTotalEl.textContent = total.toFixed(2);
+    }
+    
+    // Переключение бургер-меню для мобильной версии
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navbar = document.querySelector('.navbar');
+    burgerMenu.addEventListener('click', () => {
+      navbar.classList.toggle('active');
+    });
+  });
+  
+    </script>
+</body>
+
+</html>
